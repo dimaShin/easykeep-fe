@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthService} from "../shared/services/auth/auth.service";
 import {Router} from "@angular/router";
 import {Subscriber, Subscription} from "rxjs";
+import {TokenService} from "../shared/services/token/token.service";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private token: TokenService
   ) { }
 
   ngOnInit() {
@@ -34,8 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSuccessLogin(accessToken) {
     this.loginSubscriber = this.auth.getNewToken(accessToken)
-      .mapTo(token => {
-        this.auth.token = token;
+      .map(payload => {
+        this.token.token = payload.token;
         return this.auth.getMe();
       })
       .subscribe(me => {
