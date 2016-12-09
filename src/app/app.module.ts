@@ -31,7 +31,8 @@ import {SharedModule} from "./shared/shared.module";
         pathMatch: 'full',
         resolve: {
           sdk: LoginModule
-        }
+        },
+        canActivate: [ LoginModule ]
       },
       {
         path: '',

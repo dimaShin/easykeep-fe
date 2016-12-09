@@ -15,6 +15,10 @@ export class AuthService {
   ) { }
 
   public getMe() : Observable<any> {
+    if (this._me) {
+      return Observable.of(this._me);
+    }
+
     return this.api.doRequest('api/me');
   }
 

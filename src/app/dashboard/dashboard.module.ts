@@ -1,9 +1,9 @@
-import {NgModule, OnDestroy} from '@angular/core';
+import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from "@angular/router";
 import {AuthService} from "../shared/services/auth/auth.service";
-import {Subscription, Observable} from "rxjs";
+import { Observable} from "rxjs";
 
 @NgModule({
   imports: [
@@ -24,6 +24,7 @@ export class DashboardModule implements CanActivate {
         if (!user) {
           this.router.navigate(['login']);
         }
+        this.auth.me = user || null;
         return !!user;
       });
   }

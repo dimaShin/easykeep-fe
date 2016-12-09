@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
-import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {AuthService} from "../shared/services/auth/auth.service";
 
 @NgModule({
   imports: [
@@ -10,11 +11,23 @@ import {Observable} from "rxjs";
   ],
   declarations: [LoginComponent]
 })
-export class LoginModule implements Resolve<any> {
+export class LoginModule implements Resolve<any>, CanActivate {
 
   constructor(
-
+    private auth: AuthService,
+    private router: Router
   ) {}
+
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> {
+    return this.auth.getMe()
+      .map((user) => {
+        if (user) {
+          this.auth.me = user;
+          this.router.navigate(['']);
+        }
+        return !user;
+      });
+  }
 
   public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     return Observable.of({
