@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {ApiService} from "../api/api.service";
-import {TokenService} from "../token/token.service";
 
 @Injectable()
 export class AuthService {
@@ -19,7 +18,10 @@ export class AuthService {
       return Observable.of(this._me);
     }
 
-    return this.api.doRequest('api/me');
+    return this.api.doRequest('api/me')
+      .catch((err: any, cought: Observable<any>) : Observable<any> => {
+        return Observable.of(null);
+      });
   }
 
   public getNewToken(socialToken: string) : Observable<any> {

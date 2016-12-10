@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (response.status === 'connected') {
         this.onSuccessLogin(response.authResponse.accessToken);
       }
-    });
+    }, {scope: 'public_profile, email'});
   }
 
   onSuccessLogin(accessToken) {
