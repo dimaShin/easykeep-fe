@@ -5,20 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
-import { DashboardComponent } from './dashboard/dashboard.component';
-import {DashboardModule} from "./dashboard/dashboard.module";
-import {LoginModule} from "./login/login.module";
-import {LoginComponent} from "./login/login.component";
 import {SharedModule} from "./shared/shared.module";
+import {AuthService} from "./shared/services/auth/auth.service";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-
-    DashboardModule,
-    LoginModule,
     SharedModule,
 
     BrowserModule,
@@ -27,18 +21,23 @@ import {SharedModule} from "./shared/shared.module";
     RouterModule.forRoot([
       {
         path: 'login',
-        component: LoginComponent,
-        pathMatch: 'full',
-        resolve: {
-          sdk: LoginModule
+        loadChildren: 'app/login/login.module#LoginModule',
+        pathMatch: 'prefix',
+        data: {
+          requireAuth: false,
+          redirectTo: ''
         },
-        canActivate: [ LoginModule ]
+        canActivate: [ AuthService ]
       },
       {
         path: '',
-        component: DashboardComponent,
+        loadChildren: 'app/dashboard/dashboard.module#DashboardModule',
         pathMatch: 'prefix',
-        canActivate: [ DashboardModule ]
+        canActivate: [ AuthService ],
+        data: {
+          requireAuth: true,
+          redirectTo: 'login'
+        }
       },
       {
         path: '**',

@@ -1,0 +1,15 @@
+$footer-height: 60px;
+
+.content-wrp {
+  width: 100vw;
+  height: calc(100vh - #{$footer-height});
+  overflow-y: auto;
+}
+
+.footer-wrp {
+  width: 100vw;
+  height: $footer-height;
+  position: static;
+  bottom: 0;
+  left: 0;
+}

@@ -1,32 +1,40 @@
 import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from "@angular/router";
-import {AuthService} from "../shared/services/auth/auth.service";
-import { Observable} from "rxjs";
+import {DashFooterComponent} from "./dash-footer/dash-footer.component";
+import {DashProfileComponent} from "./dash-profile/dash-profile.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DashboardComponent,
+        pathMatch: 'prefix',
+        children: [
+          {
+            path: 'profile',
+            component: DashProfileComponent
+          },
+          {
+            path: '**',
+            redirectTo: 'profile'
+          }
+        ]
+      }
+    ])
   ],
-  declarations: [DashboardComponent]
+  declarations: [
+    DashboardComponent,
+    DashFooterComponent,
+    DashProfileComponent
+  ]
 })
-export class DashboardModule implements CanActivate {
+export class DashboardModule {
 
   constructor(
-    private auth: AuthService,
-    private router: Router
   ) { }
-
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> {
-    return this.auth.getMe()
-      .map((user) => {
-        if (!user) {
-          this.router.navigate(['login']);
-        }
-        this.auth.me = user || null;
-        return !!user;
-      });
-  }
 
 }

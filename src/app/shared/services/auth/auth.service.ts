@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {Router} from "@angular/router";
+import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
 import {ApiService} from "../api/api.service";
 
 @Injectable()
-export class AuthService {
+export class AuthService implements CanActivate {
 
   private _me: any = null;
 
@@ -39,6 +39,32 @@ export class AuthService {
       return;
     }
     return this._me;
+  }
+
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
+    let data: {requireAuth: boolean, redirectTo: string} = (<any>route).data;
+
+    if (data.requireAuth === void 0) {
+      return true;
+    }
+
+    return this.getMe().map((user) => {
+        let isAllowed : boolean = AuthService.routesFirewall(user, data.requireAuth);
+
+        if (!isAllowed) {
+          this.router.navigate([data.redirectTo])
+        }
+
+        return isAllowed;
+      });
+  }
+
+  static routesFirewall(user: any, requireAuth: boolean) : boolean {
+    if (user) {
+      return requireAuth;
+    } else {
+      return !requireAuth;
+    }
   }
 
 }

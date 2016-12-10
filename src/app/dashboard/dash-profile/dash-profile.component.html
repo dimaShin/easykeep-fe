@@ -1,0 +1,15 @@
+<div class="dash-profile">
+
+  <div class="avatar-wrp">
+      <img src="assets/img/ava_default.png">
+  </div>
+
+  <h1 class="name">
+    {{ (me | async)?.name }}
+  </h1>
+
+  <div class="email">
+    {{ (me | async)?.email }}
+  </div>
+
+</div>
