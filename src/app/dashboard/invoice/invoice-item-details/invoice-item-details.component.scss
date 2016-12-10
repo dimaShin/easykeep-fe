@@ -1,0 +1,51 @@
+.invoice-product-form {
+
+  .product-name,
+  .product-price,
+  .product-cost
+  {
+    width: 100%;
+    md-input {
+      width: 100%;
+    }
+  }
+
+  .product-quantity {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    md-input {
+      flex: 1
+    }
+
+    select {
+      font-size: 1em;
+    }
+  }
+
+
+}
+md-card-footer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  button {
+    margin: 10px;
+  }
+
+}
+
+md-card-header {
+  position: relative;
+
+  button {
+    position: absolute;
+    right: 10px;
+    top:10px;
+
+  }
+}

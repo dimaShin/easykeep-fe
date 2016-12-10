@@ -1,0 +1,26 @@
+.invoice-form {
+  padding: 20px;
+
+  md-input {
+    width: 100%;
+  }
+
+  .form-row {
+    md-input.main {
+      flex: 1
+    }
+  }
+
+  .items-list-wrp {
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      h3 {
+        flex: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+
+<md-toolbar
+  color="primary"
+>
+  {{ title }}
+</md-toolbar>
+
+<form name="form" class="invoice-form">
+  <md-input
+    type="text"
+    id="place"
+    name="place"
+    placeholder="Specify place of invoice"
+    [(ngModel)]="invoice.place"
+    required
+  ></md-input>
+
+  <div class="items-list-wrp"
+       *ngIf="selectedItem === null"
+  >
+    <div class="title">
+      <h3>
+        Products list&nbsp;
+      </h3>
+      <button md-mini-fab
+              color="primary"
+              (click)="addProductClicked()"
+      >
+        <md-icon
+          fontSet="fa"
+          fontIcon="fa-plus-circle"
+          class="md-12"
+        ></md-icon>
+      </button>
+    </div>
+    <invoice-items-list
+      [items]="invoice.items"
+    >
+    </invoice-items-list>
+  </div>
+
+  <invoice-item-details
+    *ngIf="selectedItem !== null"
+    (remove)="onRemoveProduct()"
+    (cancel)="onCancelDetails()"
+    [product]="selectedItem"
+  ></invoice-item-details>
+</form>

@@ -1,0 +1,113 @@
+<md-card>
+
+  <md-card-header>
+    <md-card-title>
+      <h3>{{title}}</h3>
+    </md-card-title>
+    <button
+      md-mini-fab
+      color="warn"
+      type="button"
+      *ngIf="product.id"
+      (click)="deleteClicked()"
+    >
+      <md-icon class="md-12">delete</md-icon>
+    </button>
+  </md-card-header>
+
+  <md-card-content>
+    <form
+      *ngIf="product !== null"
+      name="form"
+      class="invoice-product-form"
+      novalidate
+    >
+
+      <div class="product-name">
+        <md-input
+          name="name"
+          [(ngModel)]="product.name"
+          required
+          placeholder="Product name"
+        ></md-input>
+      </div>
+
+      <div class="product-price">
+        <md-input
+          name="price"
+          type="number"
+          [ngModel]="product.price"
+          (ngModelChange)="onPriceChange($event)"
+          required
+          placeholder="Product price"
+        >
+          <span md-suffix>&nbsp;грн</span>
+        </md-input>
+      </div>
+
+      <div class="product-cost">
+        <md-input
+          name="cost"
+          type="number"
+          [ngModel]="product.cost"
+          (ngModelChange)="onCostChange($event)"
+          required
+          placeholder="Product cost"
+        >
+          <span md-suffix>&nbsp;грн</span>
+        </md-input>
+      </div>
+
+      <div class="product-quantity">
+        <md-input
+          name="quantity"
+          type="number"
+          [ngModel]="product.quantity"
+          (ngModelChange)="onQChange($event)"
+          required
+          placeholder="Quantity"
+        >
+        </md-input>
+        <select
+          md-suffix
+          name="measure"
+          [(ngModel)]="product.measure"
+        >
+          <option value="pcs">pcs</option>
+          <option value="pcs">kg</option>
+          <option value="pcs">l.</option>
+        </select>
+      </div>
+
+    </form>
+  </md-card-content>
+
+  <md-card-footer>
+
+    <button
+      md-raised-button
+      type="button"
+      (click)="cancelClicked()"
+      color="default"
+    >
+      Cancel
+    </button>
+
+    <button md-raised-button color="primary">
+      Save
+    </button>
+
+    <!--<button-->
+      <!--type="button"-->
+      <!--(click)="cancelClicked()"-->
+      <!--md-raised-button-->
+      <!--color="default"-->
+    <!--&gt;Cancel</button>-->
+    <!--<button-->
+      <!--md-raised-button-->
+      <!--color="primary"-->
+    <!--&gt;Save</button>-->
+  </md-card-footer>
+
+</md-card>
+
