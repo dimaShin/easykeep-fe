@@ -9,4 +9,16 @@ export class InvoiceProduct {
   constructor(data) {
     Object.assign(this, data);
   }
+
+  get quantityDisplay() {
+    return `${this.quantity}${this.measure}`;
+  }
+
+  get priceDisplay() {
+    return `${this.price}₴`
+  }
+
+  get costDisplay() {
+    return `${this.price}₴`
+  }
 }

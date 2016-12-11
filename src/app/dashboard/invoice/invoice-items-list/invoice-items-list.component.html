@@ -1,1 +1,50 @@
+<md-card class="products-list">
+
+  <md-card-header class="with-action">
+    <md-card-title>
+      <h3>Products List</h3>
+    </md-card-title>
+    <button
+      class="action"
+      md-mini-fab
+      color="primary"
+      type="button"
+      (click)="addProductClicked()"
+    >
+      <md-icon class="md-12">add</md-icon>
+    </button>
+  </md-card-header>
+  <md-card-content>
+
+    <md-list>
+      <md-list-item
+        class="auto-height"
+        *ngFor="let product of invoice.products"
+      >
+
+        <div md-line class="product-row">
+          <span class="product-name">
+            {{product.name}}
+          </span>
+          <span class="product-quantity">
+            {{product.quantityDisplay}}
+          </span>
+          <span class="product-price">{{product.priceDisplay}}</span>
+        </div>
+        <div md-line class="product-row">
+          <span class="product-tags">&nbsp;</span>
+          <span class="product-cost">{{product.costDisplay}}</span>
+        </div>
+      </md-list-item>
+
+      <md-list-item class="border-top">
+        <div md-line class="total-row">
+          <span>Total</span>
+          <span>{{invoice.totalDisplay}}</span>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>
+
 

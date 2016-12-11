@@ -1,5 +1,5 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {InvoiceProduct} from "../../../shared/services/data/invoice/invoiceProduct.model";
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Invoice} from "../../../shared/services/data/invoice/invoice.model";
 
 @Component({
   selector: 'invoice-items-list',
@@ -7,10 +7,17 @@ import {InvoiceProduct} from "../../../shared/services/data/invoice/invoiceProdu
   styleUrls: ['invoice-items-list.component.scss']
 })
 export class InvoiceItemsListComponent implements OnInit {
-  @Input() items: InvoiceProduct[];
+
+  @Input() invoice: Invoice;
+
+  @Output() add: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
+  }
+
+  addProductClicked() {
+    this.add.emit();
   }
 
 }

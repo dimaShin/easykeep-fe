@@ -1,0 +1,33 @@
+@import './variables.scss';
+
+md-card-footer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  button {
+    margin: 10px;
+  }
+
+}
+
+md-card-header.with-action {
+  position: relative;
+
+  button.action {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+  }
+}
+
+md-list md-list-item.md-2-line.auto-height .md-list-item {
+  height: auto;
+  margin-bottom: 10px;
+}
+
+md-list-item.border-top {
+  border-top: 1px solid #ccc;
+}

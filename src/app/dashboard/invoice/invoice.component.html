@@ -18,23 +18,10 @@
   <div class="items-list-wrp"
        *ngIf="selectedProduct === null"
   >
-    <div class="title">
-      <h3>
-        Products list&nbsp;
-      </h3>
-      <button md-mini-fab
-              color="primary"
-              (click)="addProductClicked()"
-      >
-        <md-icon
-          fontSet="fa"
-          fontIcon="fa-plus-circle"
-          class="md-12"
-        ></md-icon>
-      </button>
-    </div>
+
     <invoice-items-list
-      [items]="invoice.products"
+      (add)="addProductClicked()"
+      [invoice]="invoice"
     >
     </invoice-items-list>
   </div>

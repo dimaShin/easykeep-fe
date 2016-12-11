@@ -1,0 +1,37 @@
+.products-list {
+
+  .product-row {
+    display: flex;
+    flex-direction: row;
+
+    .product-name {
+      flex: 1;
+      text-transform: capitalize;
+    }
+
+    .product-quantity {
+      min-width: 100px;
+    }
+
+    .product-tags {
+      flex: 1
+    }
+
+    .product-cost {
+      font-weight: bold;
+    }
+  }
+
+  .total-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: bold;
+
+    span:first-child {
+      flex: 1;
+    }
+  }
+
+}

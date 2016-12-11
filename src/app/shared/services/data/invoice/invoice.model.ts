@@ -7,7 +7,22 @@ export class Invoice {
 
   constructor(data) {
     Object.assign(this, {
-      products: (data.items || []).map(item => new InvoiceProduct(item))
+      products: (data.products || [
+        {
+          name: 'bananas',
+          quantity: 2,
+          measure: 'kg',
+          price: 30,
+          cost: 60
+        },
+        {
+          name: 'beaf',
+          quantity: 1.5,
+          measure: 'kg',
+          price: 89,
+          cost: 89 + 44.5
+        }
+      ]).map(item => new InvoiceProduct(item))
     }, data);
   }
 
@@ -15,6 +30,10 @@ export class Invoice {
     return this.products.reduce((value: number, item: InvoiceProduct) => {
       return value += item.cost;
     }, 0);
+  }
+
+  get totalDisplay() {
+    return `${this.total}₴`;
   }
 
 }
