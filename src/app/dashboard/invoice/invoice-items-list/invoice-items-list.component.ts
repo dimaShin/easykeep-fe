@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {InvoiceItem} from "../../../shared/services/data/invoice/invoiceItem.model";
+import {InvoiceProduct} from "../../../shared/services/data/invoice/invoiceProduct.model";
 
 @Component({
   selector: 'invoice-items-list',
@@ -7,7 +7,7 @@ import {InvoiceItem} from "../../../shared/services/data/invoice/invoiceItem.mod
   styleUrls: ['invoice-items-list.component.scss']
 })
 export class InvoiceItemsListComponent implements OnInit {
-  @Input() items: InvoiceItem[];
+  @Input() items: InvoiceProduct[];
   constructor() { }
 
   ngOnInit() {

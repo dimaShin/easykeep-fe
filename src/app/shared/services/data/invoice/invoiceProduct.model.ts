@@ -1,5 +1,5 @@
-export class InvoiceItem {
-  public id: string;
+export class InvoiceProduct {
+  public id?: string;
   public name: string;
   public price: number;
   public quantity: number;

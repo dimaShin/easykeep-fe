@@ -1,18 +1,18 @@
-import {InvoiceItem} from "./invoiceItem.model";
+import {InvoiceProduct} from "./invoiceProduct.model";
 export class Invoice {
 
-  public id: string;
+  public id?: string;
   public place: string;
-  public items: InvoiceItem[];
+  public products: InvoiceProduct[];
 
   constructor(data) {
     Object.assign(this, {
-      items: (data.items || []).map(item => new InvoiceItem(item))
+      products: (data.items || []).map(item => new InvoiceProduct(item))
     }, data);
   }
 
   get total() {
-    return this.items.reduce((value: number, item: InvoiceItem) => {
+    return this.products.reduce((value: number, item: InvoiceProduct) => {
       return value += item.cost;
     }, 0);
   }

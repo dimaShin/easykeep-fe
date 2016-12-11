@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Invoice} from "../../shared/services/data/invoice/invoice.model";
 import InvoiceService from "../../shared/services/data/invoice/invoice.service";
-import {InvoiceItem} from "../../shared/services/data/invoice/invoiceItem.model";
+import {InvoiceProduct} from "../../shared/services/data/invoice/invoiceProduct.model";
 
 @Component({
   selector: 'app-invoice',
@@ -12,7 +12,7 @@ import {InvoiceItem} from "../../shared/services/data/invoice/invoiceItem.model"
 export class InvoiceComponent implements OnInit {
 
   public invoice: Invoice;
-  public selectedItem: InvoiceItem = null;
+  public selectedProduct: InvoiceProduct = null;
 
   constructor(
     private route:ActivatedRoute,
@@ -31,15 +31,20 @@ export class InvoiceComponent implements OnInit {
   }
 
   addProductClicked() : void {
-    this.selectedItem = this.invoiceService.getItem();
+    this.selectedProduct = this.invoiceService.getItem();
   }
 
   onCancelDetails() {
-    this.selectedItem = null;
+    this.selectedProduct = null;
   }
 
-  onRemoveProduct() {
+  onRemoveProduct(product: InvoiceProduct) {
 
+  }
+
+  onSaveProduct(product: InvoiceProduct) {
+    this.invoice.products.push(product);
+    this.selectedProduct = null;
   }
 
 }

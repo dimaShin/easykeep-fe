@@ -1,10 +1,10 @@
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
-
-@import "./material-theme";
-
 @import "./fonts";
 @import "./variables";
+@import "./material-theme";
+
+@import "./forms";
 
 body {
   margin: 0 !important;

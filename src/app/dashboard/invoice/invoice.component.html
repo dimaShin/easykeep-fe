@@ -5,7 +5,7 @@
   {{ title }}
 </md-toolbar>
 
-<form name="form" class="invoice-form">
+<form name="form" class="invoice-form" novalidate>
   <md-input
     type="text"
     id="place"
@@ -16,7 +16,7 @@
   ></md-input>
 
   <div class="items-list-wrp"
-       *ngIf="selectedItem === null"
+       *ngIf="selectedProduct === null"
   >
     <div class="title">
       <h3>
@@ -34,15 +34,16 @@
       </button>
     </div>
     <invoice-items-list
-      [items]="invoice.items"
+      [items]="invoice.products"
     >
     </invoice-items-list>
   </div>
-
-  <invoice-item-details
-    *ngIf="selectedItem !== null"
-    (remove)="onRemoveProduct()"
-    (cancel)="onCancelDetails()"
-    [product]="selectedItem"
-  ></invoice-item-details>
 </form>
+
+<invoice-item-details
+  *ngIf="selectedProduct !== null"
+  (remove)="onRemoveProduct($event)"
+  (cancel)="onCancelDetails()"
+  (save)="onSaveProduct($event)"
+  [product]="selectedProduct"
+></invoice-item-details>

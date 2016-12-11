@@ -3,7 +3,7 @@ import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/rou
 import {ApiService} from "../../api/api.service";
 import {Observable} from "rxjs";
 import {Invoice} from "./invoice.model";
-import {InvoiceItem} from "./invoiceItem.model";
+import {InvoiceProduct} from "./invoiceProduct.model";
 @Injectable()
 export default class InvoiceService implements Resolve<any> {
 
@@ -15,7 +15,7 @@ export default class InvoiceService implements Resolve<any> {
     return Observable.of(new Invoice({id: (<any>route).params.invoiceId}));
   }
 
-  getItem() : InvoiceItem {
-    return new InvoiceItem({});
+  getItem() : InvoiceProduct {
+    return new InvoiceProduct({});
   }
 }

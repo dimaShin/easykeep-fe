@@ -1,3 +1,12 @@
+<form
+  #form="ngForm"
+  name="form"
+  class="invoice-product-form"
+  novalidate
+  (submit)="submitClicked($event)"
+>
+
+
 <md-card>
 
   <md-card-header>
@@ -16,20 +25,24 @@
   </md-card-header>
 
   <md-card-content>
-    <form
-      *ngIf="product !== null"
-      name="form"
-      class="invoice-product-form"
-      novalidate
-    >
+
 
       <div class="product-name">
         <md-input
           name="name"
           [(ngModel)]="product.name"
           required
+          color="warn"
           placeholder="Product name"
-        ></md-input>
+        >
+          <md-hint
+            class="error-hint"
+            *ngIf="showHint(form.controls.name)"
+            align="end"
+          >
+            This field is required
+          </md-hint>
+        </md-input>
       </div>
 
       <div class="product-price">
@@ -42,6 +55,14 @@
           placeholder="Product price"
         >
           <span md-suffix>&nbsp;грн</span>
+
+          <md-hint
+            class="error-hint"
+            *ngIf="showHint(form.controls.price)"
+            align="end"
+          >
+            This field is required
+          </md-hint>
         </md-input>
       </div>
 
@@ -55,6 +76,14 @@
           placeholder="Product cost"
         >
           <span md-suffix>&nbsp;грн</span>
+
+          <md-hint
+            class="error-hint"
+            *ngIf="showHint(form.controls.cost)"
+            align="end"
+          >
+            This field is required
+          </md-hint>
         </md-input>
       </div>
 
@@ -67,6 +96,14 @@
           required
           placeholder="Quantity"
         >
+
+          <md-hint
+            class="error-hint"
+            *ngIf="showHint(form.controls.quantity)"
+            align="end"
+          >
+            This field is required
+          </md-hint>
         </md-input>
         <select
           md-suffix
@@ -79,13 +116,13 @@
         </select>
       </div>
 
-    </form>
+
   </md-card-content>
 
   <md-card-footer>
 
     <button
-      md-raised-button
+      md-button
       type="button"
       (click)="cancelClicked()"
       color="default"
@@ -93,21 +130,13 @@
       Cancel
     </button>
 
-    <button md-raised-button color="primary">
-      Save
-    </button>
+    <button
+      md-raised-button
+      type="submit"
+      color="primary"
+    >Save</button>
 
-    <!--<button-->
-      <!--type="button"-->
-      <!--(click)="cancelClicked()"-->
-      <!--md-raised-button-->
-      <!--color="default"-->
-    <!--&gt;Cancel</button>-->
-    <!--<button-->
-      <!--md-raised-button-->
-      <!--color="primary"-->
-    <!--&gt;Save</button>-->
   </md-card-footer>
 
 </md-card>
-
+</form>

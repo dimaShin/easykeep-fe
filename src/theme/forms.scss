@@ -1,0 +1,18 @@
+$error-color: md-color($md-red, 300, 1);
+
+
+
+md-input.ng-invalid.ng-dirty {
+
+  .error-hint,
+  .md-input-placeholder
+  {
+    color: $error-color;
+  }
+  .md-input-underline {
+    border-color: $error-color;
+  }
+  .md-input-ripple {
+    background-color: $error-color;
+  }
+}

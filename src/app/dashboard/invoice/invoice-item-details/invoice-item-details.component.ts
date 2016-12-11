@@ -1,8 +1,8 @@
-import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
-import {InvoiceItem} from "../../../shared/services/data/invoice/invoiceItem.model";
+import {Component, OnInit, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {InvoiceProduct} from "../../../shared/services/data/invoice/invoiceProduct.model";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {ConfirmComponent} from "../../../shared/components/confirm/confirm.component";
-import {Subscription} from "rxjs";
+import {NgForm, FormGroup, FormControl} from "@angular/forms";
 
 @Component({
   selector: 'invoice-item-details',
@@ -13,17 +13,18 @@ export class InvoiceItemDetailsComponent implements OnInit {
 
   @Output() cancel: EventEmitter<any> = new EventEmitter();
   @Output() remove: EventEmitter<any> = new EventEmitter();
-  @Input() product: InvoiceItem;
+  @Output() save  : EventEmitter<any> = new EventEmitter();
 
-  private confirm: MdDialogRef<ConfirmComponent>;
+  @Input() product: InvoiceProduct;
+
+  @ViewChild('form') ngForm: NgForm;
 
   constructor(
     private dialog: MdDialog
   ) {
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {console.log(this.ngForm) }
 
   get title() {
     return this.product && this.product.id ? 'Product Details' : 'Add Product';
@@ -64,25 +65,55 @@ export class InvoiceItemDetailsComponent implements OnInit {
   }
 
   cancelClicked() {
-    this.cancel.emit();
+    let form: FormGroup = this.ngForm.form;
+    if (form.pristine) {
+      this.cancel.emit();
+      return;
+    }
+
+    this.doConfirm()
+      .then(confirmed => {
+        if (confirmed) {
+          this.cancel.emit();
+        }
+      });
   }
 
   deleteClicked() {
-    let subscription: Subscription = null;
+    this.doConfirm()
+      .then((confirmed: boolean) => {
+        if (confirmed) {
+          this.remove.emit(this.product);
+        }
+      });
+  }
 
-    this.confirm = this.dialog.open(ConfirmComponent);
+  doConfirm(): Promise<boolean> {
+    let c:MdDialogRef<ConfirmComponent> = this.dialog.open(ConfirmComponent);
+    return c.afterClosed().toPromise();
+  }
 
-    subscription = this.confirm.afterClosed().subscribe(confirmed => {
+  submitClicked($event: Event) {
+    let form : FormGroup = this.ngForm.form;
+    $event.stopPropagation();
+    $event.preventDefault();
 
-      if (confirmed) {
-        this.remove.emit();
-      }
+    if (form.invalid) {
+      return this.markAllFieldsAsDirty(form);
+    }
 
-      this.confirm = null;
+    this.save.emit(this.product);
+  }
 
-      subscription.unsubscribe();
-    });
+  showHint(control: FormControl) : boolean {
+    return control && control.dirty && control.invalid;
+  }
 
+  private markAllFieldsAsDirty(form: FormGroup): void {
+    for(let key in form.controls) {
+      let c = form.controls[key];
+      c.markAsDirty();
+    }
   }
 
 }
